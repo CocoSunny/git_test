@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>practice 1</title>
+</head>
+<body>
+<input type="text" id="insert"/>
+<input type="button" id="btn1" value="左侧入"/>
+<input type="button" id="btn2" value="右侧入"/>
+<input type="button" id="btn3" value="左侧出"/>
+<input type="button" id="btn4" value="右侧出"/><br/>
+<span id="answer">ewfewgf</span>
+<script>
+    var answer=document.getElementById("answer");
+    var insert=document.getElementById("insert");
+    var btn1=document.getElementById("btn1");
+    var btn2=document.getElementById("btn2");
+    var btn3=document.getElementById("btn3");
+    var btn4=document.getElementById("btn4");
+window.onload=function(){
+   // answer.innerHTML=insert.value;
+    var aa;
+    btn1.onclick=function(){
+        aa=insert.value.toString();
+        answer.innerText=aa+answer.innerText;
+    }
+    btn2.onclick=function(){
+        aa=insert.value.toString();
+        answer.innerText=answer.innerText+aa;
+    }
+    btn3.onclick=function(){
+        aa=answer.innerText.charAt(0);
+        answer.innerText=answer.innerText.replace(aa,"");
+        alert(answer.innerText);
+    }
+    btn4.onclick=function(){
+        aa=answer.innerText.charAt(answer.innerText.length-1)
+        answer.innerText=answer.innerText.replace(aa,"");
+        alert(answer.innerText);
+    }
+}
+</script>
+</body>
+</html>
