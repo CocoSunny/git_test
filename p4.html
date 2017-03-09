@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>practice 1</title>
+    <style>
+        #answer{
+            font-size: 16px;
+            color:red;
+            border: 1px solid black;
+            height: 100px;
+        }
+        #answer span{
+            margin-right: 10px;
+        }
+        .all{
+            width:400px;
+            margin: 0 auto;
+        }
+        .btn{
+            width: 80px;
+            height: 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            background-color: #f8ffc4;
+        }
+        .btn:hover{
+            background-color: #D8F8FF;
+        }
+        textarea{
+            width: 100%;
+        }
+        input[type="text"]{
+            border-radius: 5px;
+            width: 200px;
+        }
+    </style>
+
+</head>
+<body>
+<div class="all">
+    <textarea id="insert" placeholder="请输入数字、中文、英文采用,或空格作为分隔符" rows="5" ></textarea><br/>
+    <input type="button" id="btn1" value="左侧入" class="btn"/>
+    <input type="button" id="btn2" value="右侧入" class="btn"/>
+    <input type="button" id="btn3" value="左侧出" class="btn"/>
+    <input type="button" id="btn4" value="右侧出" class="btn"/><br/><br/>
+    <input type="text" id="checkText" placeholder="请输入要查询的字段"/>
+    <input type="button" value="查询" id="check" class="btn"/><br/>
+    <div id="answer"></div>
+</div>
+
+<script>
+    var answer=document.getElementById("answer");
+    var insert=document.getElementById("insert");
+    var btn1=document.getElementById("btn1");
+    var btn2=document.getElementById("btn2");
+    var btn3=document.getElementById("btn3");
+    var btn4=document.getElementById("btn4");
+    var check=document.getElementById("check");
+    var checkText=document.getElementById("checkText");
+    function getdata(){
+        var insertte=insert.value;
+        var reg=/[,/s]/g;
+        insert.value="";
+        var re=insertte.replace(reg,",");
+        var reData=[];
+        if(re.trim()){
+            reData=re.split(",");
+        }
+        return reData;
+    }
+    window.onload=function(){
+        // answer.innerHTML=insert.value;
+        var aa;
+        //左插入
+        btn1.onclick=function(){
+            var da=getdata();
+            for(var i=0;i<da.length;i++){
+                var child=document.createElement("span");
+                child.innerHTML=da[da.length-1-i];
+                answer.insertBefore(child,answer.childNodes[0]);
+            }
+        }
+        //右插入
+        btn2.onclick=function(){
+            var da=getdata();
+            for(var i=0;i<da.length;i++){
+                var child=document.createElement("span");
+                child.innerHTML=da[i];
+                answer.append(child);
+            }
+        }
+        //左删除
+        btn3.onclick=function(){
+            var spans=answer.getElementsByTagName("span");
+           answer.removeChild(spans[0]);
+            alert(spans[0].innerHTML);
+        }
+        //右删除
+        btn4.onclick=function(){
+            var spans=answer.getElementsByTagName("span");
+            answer.removeChild(spans[spans.length-1]);
+            alert(spans[spans.length-1].innerHTML)
+        }
+        //查询检测
+        check.onclick=function(){
+        //获得显示数组
+            var data=[];
+            var children=answer.childNodes;
+            for(var i=0;i<children.length;i++){
+                data.push(children[i].innerText);
+            }
+            var reg= new RegExp(checkText.value);
+            for(var j=0;j<data.length;j++){
+                if(data[j].match(reg)){
+                    children[j].style.color="green";
+                }
+            }
+        }
+
+    }
+</script>
+</body>
+</html>
